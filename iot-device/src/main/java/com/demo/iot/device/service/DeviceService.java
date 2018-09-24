@@ -19,7 +19,7 @@ public class DeviceService {
     @Qualifier("heartMonitoringDevice")
     private Device device;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 1000)
     public void sendDeviceData() {
         messagingList.stream()
                 .filter(Messaging::isActive)
