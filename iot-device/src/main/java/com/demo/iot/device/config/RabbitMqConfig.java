@@ -37,14 +37,13 @@ public class RabbitMqConfig {
         return new RabbitTemplate(connectionFactory);
     }
 
-//    @Bean
-//    DirectMessageListenerContainer container(ConnectionFactory connectionFactory) {
-//
-//        DirectMessageListenerContainer container = new DirectMessageListenerContainer();
-//        container.setConnectionFactory(connectionFactory);
-//        container.setQueueNames(queueName);
-////        container.setMessageListener(receiver);
-//        return container;
-//    }
+    @Bean
+    DirectMessageListenerContainer container(ConnectionFactory connectionFactory) {
+        DirectMessageListenerContainer container = new DirectMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(queueName);
+        container.setMessageListener(receiver);
+        return container;
+    }
 
 }

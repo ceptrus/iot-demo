@@ -1,13 +1,22 @@
 package com.demo.iot.device.devices;
 
-import com.demo.iot.device.dto.DeviceData;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 @Component
-public class TemperatureDevice implements Device {
-    
+@Profile("Temperature")
+public class TemperatureDevice extends Device {
+
+    private Random random = new Random();
+
+    public TemperatureDevice() {
+        super("Temperature");
+    }
+
     @Override
-    public DeviceData read() {
-        return null;
+    long getValue() {
+        return random.longs(1, -10, 35).findFirst().getAsLong();
     }
 }

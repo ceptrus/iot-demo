@@ -1,13 +1,22 @@
 package com.demo.iot.device.devices;
 
-import com.demo.iot.device.dto.DeviceData;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 @Component
-public class HeartMonitoringDevice implements Device {
+@Profile("HeartMonitor")
+public class HeartMonitoringDevice extends Device {
+
+    private Random random = new Random();
+
+    public HeartMonitoringDevice() {
+        super("HeartMonitor");
+    }
 
     @Override
-    public DeviceData read() {
-        return new DeviceData("this is a message");
+    long getValue() {
+        return random.longs(1, 60, 160).findFirst().getAsLong();
     }
 }
