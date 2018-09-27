@@ -4,4 +4,11 @@ services:
         image: rabbitmq:3.7.8-management
         ports:
             - 5672:5672
-            - 15672:15672
+            - 15672:15672 # management
+
+    mongo:
+        image: mongo
+        ports:
+            - 27017:27017
+        volumes:
+            - ./data:/data/db

@@ -1,11 +1,11 @@
 package com.demo.iot.main.config;
 
+import com.demo.iot.main.service.ReceivedMessageService;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,7 @@ public class RabbitMqConfig {
     static final String queueName = "device-data";
 
     @Autowired
-    private Receiver receiver;
+    private ReceivedMessageService receivedMessageService;
 
     @Bean
     Queue queue() {
@@ -40,7 +40,7 @@ public class RabbitMqConfig {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName);
-        container.setMessageListener(receiver);
+        container.setMessageListener(receivedMessageService);
         return container;
     }
 

@@ -19,6 +19,7 @@ public class RabbitMqMessaging implements Messaging {
         try {
             byte[] bytes = new ObjectMapper().writeValueAsBytes(data);
             rabbitTemplate.send("amq.fanout", null, MessageBuilder.withBody(bytes).build());
+            System.out.println("Message sent.");
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

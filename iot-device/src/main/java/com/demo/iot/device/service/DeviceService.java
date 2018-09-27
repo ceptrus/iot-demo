@@ -17,7 +17,7 @@ public class DeviceService {
     @Autowired
     private Device device;
 
-    @Scheduled(fixedRate = 500)
+    @Scheduled(fixedRate = 3000)
     public void sendDeviceData() {
         messagingList.stream()
                 .filter(Messaging::isActive)
