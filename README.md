@@ -20,3 +20,8 @@ This project is not a production ready system but should close as it can be.
 - Scalable and extendable to work with more IoT devices
 - Fast
 - Self-contained
+
+## Solution Architecture
+
+[<img src="architecture_diagram.png">]
+
