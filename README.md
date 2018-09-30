@@ -25,3 +25,16 @@ This project is not a production ready system but should close as it can be.
 
 [<img src="architecture_diagram.png">]
 
+
+## How To Setup
+
+```
+docker run -d -p 5000:5000 --name registry registry:2
+
+docker build . -f Dockerfile-device -t localhost:5000/iot-device
+docker push localhost:5000/iot-device
+
+docker build . -f Dockerfile-main -t localhost:5000/iot-main
+docker push localhost:5000/iot-main
+
+```
