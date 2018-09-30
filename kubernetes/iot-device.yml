@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: iot-device
+#    labels:
+#        app: iot-device
+spec:
+    selector:
+        matchLabels:
+            app: iot-device
+    strategy:
+        type: RollingUpdate
+    template:
+        metadata:
+            labels:
+                app: iot-device
+        spec:
+            containers:
+            -   name: iot-device
+                image: 'localhost:5000/iot-device'
+                env:
+                -   name: SPRING_RABBITMQ_HOST
+                    value: rabbitmq
+                -   name: SPRING_PROFILES_ACTIVE
+                    value: HeartMonitor
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: iot-device
+    labels:
+        run: iot-device
+spec:
+    ports:
+    -   port: 8080
+    selector:
+        app: iot-device
