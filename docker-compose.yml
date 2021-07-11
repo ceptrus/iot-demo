@@ -1,14 +1,11 @@
 version: '3'
 services:
-    rabbit-mq:
-        image: rabbitmq:3.7.8-management
-        ports:
-            - 5672:5672
-            - 15672:15672 # management
+  rabbit-mq:
+    image: rabbitmq:3.8.19
+    ports:
+      - 5672:5672
 
-    mongo:
-        image: mongo
-        ports:
-            - 27017:27017
-        volumes:
-            - ./data:/data/db
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017

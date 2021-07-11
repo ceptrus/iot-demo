@@ -9,7 +9,7 @@ import java.util.Random;
 @Profile("HeartMonitor")
 public class HeartMonitoringDevice extends Device {
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public HeartMonitoringDevice() {
         super("HeartMonitor");
@@ -17,6 +17,8 @@ public class HeartMonitoringDevice extends Device {
 
     @Override
     long getValue() {
-        return random.longs(1, 60, 160).findFirst().getAsLong();
+        return random.longs(1, 60, 160)
+            .findFirst()
+            .getAsLong();
     }
 }

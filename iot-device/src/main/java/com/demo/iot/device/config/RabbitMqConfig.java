@@ -1,35 +1,45 @@
 package com.demo.iot.device.config;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMqConfig {
 
-    static final String topicExchangeName = "amq.fanout";
-    static final String queueName = "device-data";
+    public static final String TOPIC_EXCHANGE_NAME = "amq.fanout";
+    private static final String QUEUE_NAME = "device-data";
 
     @Bean
-    Queue queue() {
-        return new Queue(queueName, false);
+    public Queue queue() {
+        return new Queue(QUEUE_NAME, false);
     }
 
     @Bean
-    FanoutExchange exchange() {
-        return new FanoutExchange(topicExchangeName, true, false);
+    public FanoutExchange exchange() {
+        return new FanoutExchange(TOPIC_EXCHANGE_NAME, true, false);
     }
 
     @Bean
-    Binding binding(Queue queue, FanoutExchange exchange) {
+    public Binding binding(Queue queue, FanoutExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange);
     }
 
     @Bean
-    RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-        return new RabbitTemplate(connectionFactory);
+    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
+        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
+        return rabbitTemplate;
     }
 
+    @Bean
+    public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
 }

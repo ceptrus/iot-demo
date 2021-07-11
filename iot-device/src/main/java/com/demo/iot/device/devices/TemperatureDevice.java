@@ -9,7 +9,7 @@ import java.util.Random;
 @Profile("Temperature")
 public class TemperatureDevice extends Device {
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public TemperatureDevice() {
         super("Temperature");
@@ -17,6 +17,8 @@ public class TemperatureDevice extends Device {
 
     @Override
     long getValue() {
-        return random.longs(1, -10, 35).findFirst().getAsLong();
+        return random.longs(1, -10, 35)
+            .findFirst()
+            .getAsLong();
     }
 }

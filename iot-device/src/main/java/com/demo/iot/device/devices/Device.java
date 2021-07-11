@@ -1,10 +1,10 @@
 package com.demo.iot.device.devices;
 
-import com.demo.iot.device.dto.DeviceData;
+import com.demo.iot.shared.dto.DeviceData;
 
 public abstract class Device {
 
-    private String type;
+    private final String type;
 
     public Device(String type) {
         this.type = type;
